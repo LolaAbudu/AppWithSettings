@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         String marketPref = sharedPref2
                 .getString("sync_frequency", "-1");
         Toast.makeText(this,marketPref,Toast.LENGTH_SHORT).show();
-        //displayToast(marketPref);
     }
 
     @Override
