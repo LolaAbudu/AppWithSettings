@@ -2,10 +2,12 @@ package com.example.lolaabudu.appwithsettings;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
@@ -40,6 +42,20 @@ public class MainActivity extends AppCompatActivity {
                 (SettingsActivity.KEY_PREF_EXAMPLE_SWITCH, false);
         Toast.makeText(this, switchPref.toString(),
                 Toast.LENGTH_SHORT).show();
+
+        PreferenceManager.setDefaultValues(this,
+                R.xml.pref_general, false);
+        PreferenceManager.setDefaultValues(this,
+                R.xml.pref_notification, false);
+        PreferenceManager.setDefaultValues(this,
+                R.xml.pref_account, false);
+
+        SharedPreferences sharedPref2 = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        String marketPref = sharedPref2
+                .getString("sync_frequency", "-1");
+        Toast.makeText(this,marketPref,Toast.LENGTH_SHORT).show();
+        //displayToast(marketPref);
     }
 
     @Override
@@ -57,12 +73,16 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent settingIntent1 = new Intent(this, SettingsActivity.class);
+                startActivity(settingIntent1);
+                return true;
+            case R.id.action_settings2:
+                Intent settingIntent2 = new Intent(this, SettingsActivity2.class);
+                startActivity(settingIntent2);
+                return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
